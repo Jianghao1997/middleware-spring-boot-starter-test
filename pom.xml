@@ -70,6 +70,14 @@
             <artifactId>hystrix-spring-boot-starter</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- 服务治理，限流 -->
+        <dependency>
+            <groupId>cn.hoodee.middleware</groupId>
+            <artifactId>ratelimiter-spring-boot-starter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

@@ -1,6 +1,7 @@
 package cn.hoodee.middleware.test.controller;
 
 import cn.hoodee.middleware.hystrix.annotation.DoHystrix;
+import cn.hoodee.middleware.ratelimiter.annotation.DoRateLimiter;
 import cn.hoodee.middleware.test.common.ResultResponse;
 import cn.hoodee.middleware.test.pojo.UserInfo;
 import com.alibaba.fastjson.JSON;
@@ -28,6 +29,13 @@ public class UserController {
     public ResultResponse queryUserInfo(@RequestParam String userId) throws InterruptedException {
         logger.info("查询用户信息，userId：{}", userId);
         Thread.sleep(1000);
+        return ResultResponse.Success(new UserInfo("用户id:" + userId, 19, "天津市东丽区万科赏溪苑14-0000"));
+    }
+
+    @DoRateLimiter(permitsPerSecond  = 1, returnJson = "{\"code\":\"-1\",\"msg\":\"调用方法超过最大次数，限流返回！\"}")
+    @GetMapping(value = "/api/doRateLimiter")
+    public ResultResponse doRateLimiter(@RequestParam String userId) throws InterruptedException {
+        logger.info("查询用户信息，userId：{}", userId);
         return ResultResponse.Success(new UserInfo("用户id:" + userId, 19, "天津市东丽区万科赏溪苑14-0000"));
     }
 
